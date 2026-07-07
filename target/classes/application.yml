@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: me-integracao-suppliers
+  datasource:
+    url: ${DB_URL:jdbc:oracle:thin:@//homol-db.solus.levesaude.com.br:1521/ORCL}
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ${DB_USERNAME:solus}
+    password: ${DB_PASSWORD:Sol#2024}
+  sql:
+    init:
+      mode: never
+
+server:
+  port: ${SERVER_PORT:8083}
+
+me:
+  api:
+    environment: ${ME_ENVIRONMENT:STG}
+    stg-url: ${ME_STG_URL:https://stg.api.mercadoe.com}
+    prod-url: ${ME_PROD_URL:https://api.mercadoe.com}
+    client-id: ${ME_CLIENT_ID:8NSGDHK4FEY1KZNB}
+    client-secret: ${ME_CLIENT_SECRET:b10b902b-54cb-41e2-bd17-1088acefb9da}
+    token-skew-seconds: ${ME_TOKEN_SKEW_SECONDS:30}
+    retry:
+      max-attempts: ${ME_API_RETRY_MAX_ATTEMPTS:4}
+      initial-backoff-ms: ${ME_API_RETRY_INITIAL_BACKOFF_MS:1000}
+  integration:
+    suppliers:
+      enabled: ${ME_INTEGRATION_SUPPLIERS_ENABLED:true}
+      cron: ${ME_INTEGRATION_SUPPLIERS_CRON:0 */5 * * * *}
+      request-interval-ms: ${ME_INTEGRATION_SUPPLIERS_REQUEST_INTERVAL_MS:250}
